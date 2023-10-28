@@ -2,15 +2,16 @@
 void setup() {
   //set up pins to output.
   LedLightSetup();
-  humanIRSetup();
+  RemoteControlSetup();
   UltraSonicSetup();
   //Call the TurnOn method, wait, then call TurnOff
  
 }
 
 void loop(){
-  uint16_t  ir_value = humanIRloop();
-  float distance = UltaSonicLoop();
+  AutodetectEventBlinker();
+  uint16_t  ir_value = RemoteControlReceiver();
+  float distance = UltaSonicSensor();
   boolean presence = detect_human(distance);
   Serial.println(ir_value);
 //  Serial.println(distance);

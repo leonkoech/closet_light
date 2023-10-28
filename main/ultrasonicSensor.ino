@@ -20,7 +20,7 @@ void UltraSonicSetup() {
 
 }
 
-float UltaSonicLoop() {
+float UltaSonicSensor() {
   
   ultrasonic_functioning();
   
