@@ -4,17 +4,15 @@
 
 
 void RemoteControlSetup(){
-   pinMode(REMOTE_CODE, OUTPUT);
-   pinMode(AUTODETECT_ACTIVE_PIN, OUTPUT);
+//   pinMode(REMOTE_CODE, OUTPUT);
    IrReceiver.begin(REMOTE_CODE, ENABLE_LED_FEEDBACK);
 }
 
-uint16_t RemoteControlReceiver() {
-    uint16_t command = analogRead(REMOTE_CODE);
+void RemoteControlReceiver() {
+//    uint16_t command = analogRead(REMOTE_CODE);
    if (IrReceiver.decode()) {
-    command = IrReceiver.decodedIRData.command;
-    Serial.println(command);
+    int command = IrReceiver.decodedIRData.command;
+    CallRemote(command);
     IrReceiver.resume();
   }
-   return command;
 }
