@@ -1,27 +1,30 @@
+#include "ColorStruct.h"
+extern bool is_power_on = true;
 
 void setup() {
   //set up pins to output.
   LedLightSetup();
   RemoteControlSetup();
   UltraSonicSetup();
+  AutoDetectSetup();
+  SetupRemoteControlMapper();
   //Call the TurnOn method, wait, then call TurnOff
  
 }
 
 void loop(){
   AutodetectEventBlinker();
-  uint16_t  ir_value = RemoteControlReceiver();
+  RemoteControlReceiver();
   float distance = UltaSonicSensor();
-  boolean presence = detect_human(distance);
-  Serial.println(ir_value);
-//  Serial.println(distance);
-//  Serial.println(presence);
-  if(presence){
-      TurnOn();
-  }
-  else{ 
-      TurnOff();
-  }
-  
-  delayMicroseconds(10);
+  bool presence = detect_human(distance);
+  bool is_power = CheckPower();
+  Serial.println(distance);
+  if(presence && is_power){
+        TurnOn();
+    }
+    else{ 
+        TurnOff();
+   }
+
+  delayMicroseconds(1000);
 }
