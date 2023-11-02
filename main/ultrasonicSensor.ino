@@ -9,32 +9,32 @@ const int echo = 17; // INPUT from sensor //5
 long duration;
 
 // function definition (prototype)
-bool check_distance(float distance);
+bool detect_human(float distance);
 
 void UltraSonicSetup() {
-  // put your setup code here, to run once:
-  Serial.begin(115200);
+
   pinMode(trigger, OUTPUT);
   pinMode(echo, INPUT);
-//  pinMode(vibration, OUTPUT);
 
 }
 
-float UltaSonicSensor() {
-  
+boolean UltaSonicSensor() {
   ultrasonic_functioning();
   
-  duration = pulseIn(echo, HIGH);
+  duration = pulseIn(echo, HIGH, 10000); // Set a timeout of 10ms (adjust as needed)
   
-  return fetch_distance(duration);
+  float distance = fetch_distance(duration);
+  Serial.println(distance);
+  return detect_human(distance);
+
 }
 
 void ultrasonic_functioning(){
   digitalWrite(trigger, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(20);
 
   digitalWrite(trigger, HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(20);
   digitalWrite(trigger, LOW);
 }
 
@@ -43,5 +43,5 @@ float fetch_distance(float duration){
 }
 
 boolean detect_human(float distance){
-  return distance>2 && distance<100;
+  return distance>1  && distance<100;
 }

@@ -47,7 +47,7 @@ void SetColorCodes(){
     ColorCollection[26] = pink;
 }
 
-Color selectedColor = red;
+Color selectedColor = sky;
 
 void SetColor(int code){
   selectedColor = ColorCollection[code];
