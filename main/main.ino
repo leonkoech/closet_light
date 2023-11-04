@@ -1,8 +1,22 @@
 #include "ColorStruct.h"
+
+// define pins for the Ultrasonic sensor
+#define TRIGGER 16 
+#define ECHO  17
+// define pin for the PIR motion detector
+#define PIR 19
+// define pin for the autodetection led pin
+#define AUTODETECT_ACTIVE_PIN 13
+//define pins for the red, green and blue LEDs
+#define RED_LED 6
+#define BLUE_LED 7
+#define GREEN_LED 5
+
+// define min distance and max distance for the Ultrasonic detector
+#define MIN_DISTANCE 2
+#define MAX_DISTANCE 100
+
 extern bool is_power_on = true;
-bool human_presence_motion = false;
-unsigned long lastMotionTime = 0;  // Variable to store the time when motion was last detected
-const unsigned long motionTimeout = 2000;  // 5 seconds in milliseconds
 
 
 void setup() {
@@ -19,34 +33,12 @@ void setup() {
 }
 
 void loop(){
-//  AutodetectEventBlinker();
+  AutodetectEventBlinker();
   RemoteControlReceiver();
-  boolean presence = UltaSonicSensor();
+  boolean presence = UltaSonicSensor(MIN_DISTANCE, MAX_DISTANCE);
   bool motion = PIRSensor();
   bool is_power = CheckPower();
-  
+
+  MotionDetector(motion, presence, is_power);
  
-//  if motion is detected set human_presence_motion to true
-// if presence is not detected set human_presence_motion to false
-
-// use human_presence_motion as the main flag to check
-    if (motion) {
-    human_presence_motion = true;
-    lastMotionTime = millis();  // Reset the timer when motion is detected
-  } else if (!presence) {
-    human_presence_motion = false;
-  }
-
-  // Check the timer
-  if (human_presence_motion && is_power) {
-    TurnOn();
-  } else {
-    // Check if the timer has expired (5 seconds)
-    if (millis() - lastMotionTime >= motionTimeout) {
-      human_presence_motion = false;
-      TurnOff();
-    }
-  }
-
-//  delay(1000);
 }
