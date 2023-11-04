@@ -8,7 +8,7 @@ With ability to change colors based on the remote and to activate or deactivate 
 - 2N Mosfets * 3
 - 1000 ohm resistors * 3
 - IR receiver 
-- IR remote ( will provide map code for functions, but find a remote and modify codes in the switch cases on `CallRemote()` and `SetColorCodes()` )
+- IR remote (  find a remote with a couple of buttons )
 - 24v power supply for LED
 - 5v power supply for Arduino
 - Ultrasonic Sensor Module (you can switch this out and use human motion IR or basic IR)
@@ -17,6 +17,7 @@ With ability to change colors based on the remote and to activate or deactivate 
 ## Design
 
 ## Usage
+Most of the code can be black-boxed if you want to use it. All the pins are defined in `main.ino`. As for the physical remote to modify the colors,  modify codes in the switch cases on `CallRemote()` and `SetColorCodes()`
 
 ## License
 

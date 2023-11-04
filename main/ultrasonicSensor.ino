@@ -1,6 +1,5 @@
 
-const int trigger = 16; // OUTPUT to sensor //18
-const int echo = 17; // INPUT from sensor //5
+
 
 // sound speed in cm/ micro second
 #define SOUND_SPEED 0.034
@@ -13,35 +12,35 @@ bool detect_human(float distance);
 
 void UltraSonicSetup() {
 
-  pinMode(trigger, OUTPUT);
-  pinMode(echo, INPUT);
+  pinMode(TRIGGER, OUTPUT);
+  pinMode(ECHO, INPUT);
 
 }
 
-boolean UltaSonicSensor() {
+boolean UltaSonicSensor(float min_distance, float max_distance) {
   ultrasonic_functioning();
   
-  duration = pulseIn(echo, HIGH, 10000); // Set a timeout of 10ms (adjust as needed)
+  duration = pulseIn(ECHO, HIGH, 10000); // Set a timeout of 10ms (adjust as needed)
   
-  float distance = fetch_distance(duration);
-  Serial.println(distance);
-  return detect_human(distance);
+  float current_distance = fetch_distance(duration);
+  Serial.println(current_distance);
+  return detect_human(current_distance, min_distance, max_distance);
 
 }
 
 void ultrasonic_functioning(){
-  digitalWrite(trigger, LOW);
+  digitalWrite(TRIGGER, LOW);
   delayMicroseconds(20);
 
-  digitalWrite(trigger, HIGH);
+  digitalWrite(TRIGGER, HIGH);
   delayMicroseconds(20);
-  digitalWrite(trigger, LOW);
+  digitalWrite(TRIGGER, LOW);
 }
 
 float fetch_distance(float duration){
   return  duration * SOUND_SPEED/2;
 }
 
-boolean detect_human(float distance){
-  return distance>1  && distance<100;
+boolean detect_human(float distance, float min_distance, float max_distance){
+  return distance>min_distance  && distance<max_distance;
 }

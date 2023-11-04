@@ -1,11 +1,13 @@
 
-#define AUTODETECT_ACTIVE_PIN 13
+
 extern bool is_auto = true;
 bool is_pin_13_on = true;
 
 
 unsigned long lastMotionTime = 0;  
-const unsigned long motionTimeout = 2000;  
+const unsigned long motionTimeout = 2000; 
+
+bool human_presence_motion = false;
 
 void AutoDetectSetup(){
    pinMode(LED_BUILTIN, OUTPUT);
