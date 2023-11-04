@@ -18,3 +18,5 @@ Ultrasonic Sensor Module (you can switch this out and use human motion IR or bas
 ## Usage
 
 ## License
+
+This project is under the MIT license and may be reused 

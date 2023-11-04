@@ -1,8 +1,6 @@
 #include "ColorStruct.h"
 extern bool is_power_on = true;
 bool human_presence_motion = false;
-unsigned long lastMotionTime = 0;  // Variable to store the time when motion was last detected
-const unsigned long motionTimeout = 2000;  // 5 seconds in milliseconds
 
 
 void setup() {
@@ -24,29 +22,9 @@ void loop(){
   boolean presence = UltaSonicSensor();
   bool motion = PIRSensor();
   bool is_power = CheckPower();
-  
+
+// motion detection function that sets the lights on or off based on presence, motion and whether power has been activated or not
+  MotionDetector(motion, presence, is_power);
  
-//  if motion is detected set human_presence_motion to true
-// if presence is not detected set human_presence_motion to false
-
-// use human_presence_motion as the main flag to check
-    if (motion) {
-    human_presence_motion = true;
-    lastMotionTime = millis();  // Reset the timer when motion is detected
-  } else if (!presence) {
-    human_presence_motion = false;
-  }
-
-  // Check the timer
-  if (human_presence_motion && is_power) {
-    TurnOn();
-  } else {
-    // Check if the timer has expired (5 seconds)
-    if (millis() - lastMotionTime >= motionTimeout) {
-      human_presence_motion = false;
-      TurnOff();
-    }
-  }
-
-//  delay(1000);
+ 
 }
