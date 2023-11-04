@@ -19,7 +19,7 @@ void setup() {
 void loop(){
 //  AutodetectEventBlinker();
   RemoteControlReceiver();
-  boolean presence = UltaSonicSensor();
+  bool presence = UltaSonicSensor();
   bool motion = PIRSensor();
   bool is_power = CheckPower();
 
