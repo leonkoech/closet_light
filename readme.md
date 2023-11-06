@@ -21,4 +21,4 @@ Most of the code can be black-boxed if you want to use it. All the pins are defi
 
 ## License
 
-This project is under the MIT license and may be reused 
+This project is under the []() and may be reused 
